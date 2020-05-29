@@ -23,13 +23,13 @@
 set -euo pipefail
 
 # constants
-SCRIPT_VERSION='0.2.0'
+SCRIPT_VERSION='0.2.1'
 
 # variables setable via command-line arguments
 remote_user=''
 remote_host=''
-key_type='rsa'
-key_bits=2048      # 1024/2048/4096
+key_type='ed25519' # rsa isn't cool anymore https://safecurves.cr.yp.to/
+key_bits=512      # 160/256/512 https://medium.com/@nbeguier/a-real-world-comparison-of-the-ssh-key-algorithms-b26b0b31bfd9
 verbosity=0        # verbosity (0: silent, 1: verbose)
 
 # internal variables
@@ -59,8 +59,8 @@ function initialise() {
 				echo 'usage:'
 				echo '    -u|--user <xxx>: remote user (required)'
 				echo '    -h|--host <xxx>: remote host (required)'
-				echo "    -t|--type <xxx>: PKI key pair generation algorythm (default: 'rsa')"
-				echo '    -b|--bits <000>: key size (default: 2048)'
+				echo "    -t|--type <xxx>: PKI key pair generation algorythm (default: 'ed25519')"
+				echo '    -b|--bits <000>: key size (default: 512)'
 				echo '    -v|--verbose: enable verbosity'
 				echo "    -V|--version: print the script's version (current: $SCRIPT_VERSION)"
 				echo '    -H|--help: this help message'
